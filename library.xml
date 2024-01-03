@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <catalogue type="technical_books">
+        <book>
+            <ISBN>978-0-26-204630-5</ISBN>
+            <title>Introduction to Algorithms</title>
+            <author>Thomas H. Cormen</author>
+        </book>
+        <book>
+            <ISBN>978-1-491-95766-0</ISBN>
+            <title>Python for Data Analysis</title>
+            <author>Wes McKinney</author>
+        </book>
+    </catalogue>
+
+    <catalogue type="cookery_books">
+        <book>
+            <ISBN>978-0-71-718984-7</ISBN>
+            <title>THE JOY OF FOOD</title>
+            <author>Rory O'Connell</author>
+        </book>
+        <book>
+            <ISBN>978-0-00-817245-9</ISBN>
+            <title>THE MODERN COOK'S YEAR</title>
+            <author>Anna Jones</author>
+        </book>
+    </catalogue>
+</library>
