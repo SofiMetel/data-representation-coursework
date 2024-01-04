@@ -26,20 +26,22 @@ apikey = cfg["githubkey"]
 g = Github(apikey)
 
 repo = g.get_repo("SofiMetel/data-representation-coursework")
-print(repo.clone_url)
+#print(repo.clone_url)
 
 
 fileInfo = repo.get_contents(filename)
 urlOfFile = fileInfo.download_url
 #print (urlOfFile)
 
+
+#Use the download URL to make a http request to the file can output the contents of the file
 response = requests.get(urlOfFile)
 contentOfFile = response.text
-print (contentOfFile)
+#print (contentOfFile)
 
 newContents = contentOfFile.replace("Andrew","Sofiia")
-print (newContents)
-
+#print (newContents)
+#Update the contents of the file on git up by using the function 
 gitHubResponse=repo.update_file(fileInfo.path,"updated by prog",
 newContents,fileInfo.sha)
 print (gitHubResponse)
