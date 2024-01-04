@@ -21,44 +21,26 @@ filename = "fileandrew.txt"
 #url = 'https://api.github.com/repos/andrewbeattycourseware/datarepresentation/contents/code'
 url = 'https://api.github.com/repos/SofiMetel/data-representation-coursework'
 
-# the more basic way of setting authorization
-#headers = {'Authorization': 'token ' + apikey}
-#response = requests.get(url, headers= headers)
-
 apikey = cfg["githubkey"]
-response = requests.get(url, auth = ('token', apikey))
 
-#print (response.status_code)
-#print (response.json())
+g = Github(apikey)
+
+repo = g.get_repo("SofiMetel/data-representation-coursework")
+print(repo.clone_url)
 
 
+fileInfo = repo.get_contents(filename)
+urlOfFile = fileInfo.download_url
+#print (urlOfFile)
 
-#with  open(filename, 'w') as fp:
-    #repoJSON = response.json()
-    #json.dump(repoJSON, fp, indent=4)
+response = requests.get(urlOfFile)
+contentOfFile = response.text
+print (contentOfFile)
 
-if response.status_code == 200:
-    # Extract the download URL for the file
-    repo_json = response.json()
-    file_contents_url = repo_json['contents_url'].replace('{+path}', filename)
-    
-    # Make a GET request to get the file content
-    response = requests.get(file_contents_url, auth=('token', apikey))
-    
-    if response.status_code == 200:
-        # Replace "Andrew" with your name in the file content
-        file_content = response.json()['content']
-        modified_content = file_content.replace("Andrew", "Sofiia")
-        
-        # Use PyGithub to commit changes back to the repository
-        github = Github(apikey)
-        repo = github.get_repo("SofiMetel/data-representation-coursework")
-        file = repo.get_contents(filename)
-        repo.update_file(file.path, "Update content", modified_content, file.sha)
+newContents = contentOfFile.replace("Andrew","Sofiia")
+print (newContents)
 
-        print("Changes committed and pushed.")
-    else:
-        print(f"Failed to retrieve file content. Status code: {response.status_code}")
-else:
-    print(f"Failed to retrieve repository information. Status code: {response.status_code}")
+gitHubResponse=repo.update_file(fileInfo.path,"updated by prog",
+newContents,fileInfo.sha)
+print (gitHubResponse)
 
